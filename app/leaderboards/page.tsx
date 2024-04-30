@@ -66,7 +66,7 @@ const UserList = () => {
         <ul className={styles.list}>
           {players.bullet.map((player) => (
             <li key={player.id} className={styles.listItem}>
-              User: {player.username}, Title: {player.title || "N/A"}, Bullet:{" "}
+              User: {player.username}, Title: {player.title || "N/A"}, Rating:{" "}
               {player.perfs.bullet?.rating}
             </li>
           ))}
@@ -77,7 +77,7 @@ const UserList = () => {
         <ul className={styles.list}>
           {players.blitz.map((player) => (
             <li key={player.id} className={styles.listItem}>
-              User: {player.username}, Title: {player.title || "N/A"}, Blitz:{" "}
+              User: {player.username}, Title: {player.title || "N/A"}, Rating:{" "}
               {player.perfs.blitz?.rating}
             </li>
           ))}
@@ -88,7 +88,7 @@ const UserList = () => {
         <ul className={styles.list}>
           {players.rapid.map((player) => (
             <li key={player.id} className={styles.listItem}>
-              User: {player.username}, Title: {player.title || "N/A"}, Rapid:{" "}
+              User: {player.username}, Title: {player.title || "N/A"}, Rating:{" "}
               {player.perfs.rapid?.rating}
             </li>
           ))}
