@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import RegisterForm from "./RegisterForm";
+import Link from "next/link";
 
 const RegisterPage = () => {
   const handleSubmit = (data: {
@@ -12,9 +13,13 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <RegisterForm onSubmit={handleSubmit} />
-    </div>
+    <>
+      <div>
+        <RegisterForm onSubmit={handleSubmit} />
+      </div>
+      <h2>Already have an account?</h2>
+      <Link href="/api/auth/signin">Sign in</Link>
+    </>
   );
 };
 

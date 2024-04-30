@@ -22,11 +22,11 @@ function Navbar() {
   const isAuthenticated = status === "authenticated";
 
   const pages = [
-    { label: "Play", path: "/play" },
-    { label: "Study", path: "/study" },
+    { label: "Play", path: isAuthenticated ? "/play" : "/api/auth/signin" },
+    { label: "Leaderboards", path: "/leaderboards" },
     {
-      label: isAuthenticated ? "Sign Out" : "Login/Signup",
-      path: isAuthenticated ? "/api/auth/signout" : "/api/auth/signin",
+      label: isAuthenticated ? "Sign Out" : "Register",
+      path: isAuthenticated ? "/api/auth/signout" : "/register",
     },
   ];
 
@@ -36,6 +36,16 @@ function Navbar() {
     { label: "Dashboard", path: "/dashboard" },
     { label: "Logout", path: "/api/auth/signout" },
   ];
+
+  const appBarStyle = {
+    backgroundColor: "#000",
+    color: "#DAA520",
+  };
+
+  const linkStyle = {
+    color: "inherit",
+    textDecoration: "none",
+  };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -65,7 +75,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={appBarStyle}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -164,7 +174,7 @@ function Navbar() {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {status === "authenticated" && (
-                  <Avatar alt="Josh Adams" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Profile" src="/static/images/avatar/2.jpg" />
                 )}
               </IconButton>
             </Tooltip>
@@ -184,31 +194,22 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting, index) =>
-                setting.label === "Logout" ? (
-                  <MenuItem
-                    key={`setting-${setting.label}-${index}`}
-                    onClick={
-                      setting.label === "Logout"
-                        ? handleLogout
-                        : handleCloseUserMenu
-                    }
-                  >
+              {settings.map((setting, index) => {
+                const key = `setting-${setting.label}-${index}`;
+                return setting.label === "Logout" ? (
+                  <MenuItem key={key} onClick={handleLogout}>
                     <Typography textAlign="center">{setting.label}</Typography>
                   </MenuItem>
                 ) : (
-                  <Link href={setting.path} passHref>
-                    <MenuItem
-                      key={`setting-${setting.label}-${index}`}
-                      onClick={handleCloseUserMenu}
-                    >
+                  <Link href={setting.path} passHref key={key}>
+                    <MenuItem onClick={handleCloseUserMenu}>
                       <Typography textAlign="center">
                         {setting.label}
                       </Typography>
                     </MenuItem>
                   </Link>
-                )
-              )}
+                );
+              })}
             </Menu>
           </Box>
         </Toolbar>

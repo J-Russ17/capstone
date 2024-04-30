@@ -1,12 +1,23 @@
+"use client";
+import Link from "next/link";
 import React from "react";
-import DefaultBoard from "../components/DefaultBoard";
+import styles from "./Play.module.css"; // Import the styles from the CSS module
 
-const PlayPage = () => {
+const Play = () => {
   return (
-    <div>
-      <DefaultBoard />
+    <div className={styles.buttonsContainer}>
+      <div className={styles.buttonWrapper}>
+        <Link href="/play/computer">
+          <button className={styles.button}>Play VS Computer</button>
+        </Link>
+      </div>
+      <div className={styles.buttonWrapper}>
+        <Link href="/play/friend">
+          <button className={styles.button}>Play VS Friend</button>
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default PlayPage;
+export default Play;
