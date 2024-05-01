@@ -1,7 +1,8 @@
 -- CreateTable
 CREATE TABLE `Game` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `fen` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(191) NOT NULL,
+    `status` VARCHAR(191) NOT NULL DEFAULT 'active',
+    `fen` TEXT NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

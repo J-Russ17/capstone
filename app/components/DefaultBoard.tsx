@@ -11,14 +11,53 @@ interface DropResults {
   targetSquare: string;
 }
 
+interface GameResponse {
+  id: string;
+  fen: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const DefaultBoard: React.FC = () => {
   const [fen, setFen] = useState<string>("start");
   const [orientation, setOrientation] = useState<"white" | "black">("white");
+  const [gameId, setGameId] = useState<string>("");
   const game = useRef<Chess | null>(null);
 
   useEffect(() => {
     game.current = new Chess();
   }, []);
+
+  const startNewGame = async () => {
+    try {
+      const response = await axios.post<GameResponse>("/api/game");
+      setFen(response.data.fen);
+      setGameId(response.data.id); // Save the game ID to update later
+      console.log("Game started:", response.data);
+    } catch (error: any) {
+      console.error(
+        "Failed to start game:",
+        error.response?.data || error.message
+      );
+    }
+  };
+
+  const updateGame = async (fen: string) => {
+    if (!gameId) return; // Don't try to update if there's no game ID
+    try {
+      const response = await axios.put<GameResponse>("/api/game", {
+        gameId,
+        fen,
+      });
+      console.log("Game updated:", response.data);
+    } catch (error: any) {
+      console.error(
+        "Failed to update game:",
+        error.response?.data || error.message
+      );
+    }
+  };
 
   const onDrop = ({ sourceSquare, targetSquare }: DropResults) => {
     if (!game.current) {
@@ -50,8 +89,9 @@ const DefaultBoard: React.FC = () => {
         return "snapback";
       }
 
-      setFen(game.current.fen());
-      console.log(move);
+      const newFen = game.current.fen();
+      setFen(newFen);
+      updateGame(newFen); // Update game after a successful move
     } catch (error) {
       console.error("Failed to make move:", error);
       return "snapback";
@@ -61,18 +101,6 @@ const DefaultBoard: React.FC = () => {
       setOrientation("black");
     } else {
       setOrientation("white");
-    }
-  };
-
-  const startNewGame = async () => {
-    try {
-      const response = await axios.post("/api/game", { fen });
-      console.log("Game started:", response.data);
-    } catch (error: any) {
-      console.error(
-        "Failed to start game:",
-        error.response?.data || error.message
-      );
     }
   };
 
@@ -87,6 +115,8 @@ const DefaultBoard: React.FC = () => {
             orientation={orientation}
           />
         </div>
+        <button onClick={startNewGame}>Start Game</button>{" "}
+        {/* Start game button */}
       </div>
     </>
   );
