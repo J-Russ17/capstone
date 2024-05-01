@@ -23,10 +23,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/register", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://capstone-ruddy-six.vercel.app/api/register",
+        {
+          email,
+          password,
+        }
+      );
       console.log("Registration successful:", response.data);
     } catch (error: any) {
       console.error(
