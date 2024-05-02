@@ -1,6 +1,23 @@
 .container {
   margin-top: 2rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+}
+
+.boardAndStatus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.statusText {
+  width: 20%;
+  text-align: center;
+  font-size: 2rem;
+  color: gold;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-weight: bold;
 }

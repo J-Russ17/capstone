@@ -14,6 +14,7 @@ interface DropResults {
 const DefaultBoard: React.FC = () => {
   const [fen, setFen] = useState<string>("start");
   const [orientation, setOrientation] = useState<"white" | "black">("white");
+  const [checkmate, setCheckmate] = useState<boolean>(false);
   const game = useRef<Chess | null>(null);
 
   useEffect(() => {
@@ -57,6 +58,10 @@ const DefaultBoard: React.FC = () => {
       return "snapback";
     }
 
+    const isCheckmate = game.current?.isGameOver();
+
+    if (isCheckmate) return setCheckmate(true);
+
     if (orientation === "white") {
       setOrientation("black");
     } else {
@@ -79,13 +84,23 @@ const DefaultBoard: React.FC = () => {
   return (
     <>
       <div className={styles.container}>
-        <div className="chess-board">
-          <Chessboard
-            position={fen}
-            onDrop={onDrop}
-            dropOffBoard="snapback"
-            orientation={orientation}
-          />
+        <div className={styles.boardAndStatus}>
+          <div className={styles.statusText}>
+            {checkmate && <p>CHECKMATE!</p>}
+          </div>
+
+          <div className="chess-board">
+            <Chessboard
+              position={fen}
+              onDrop={onDrop}
+              dropOffBoard="snapback"
+              orientation={orientation}
+            />
+          </div>
+
+          <div className={styles.statusText}>
+            {checkmate && <p>{orientation.toUpperCase()} WINS!</p>}
+          </div>
         </div>
       </div>
     </>

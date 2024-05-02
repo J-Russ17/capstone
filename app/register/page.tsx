@@ -17,8 +17,6 @@ const RegisterPage = () => {
       <div>
         <RegisterForm onSubmit={handleSubmit} />
       </div>
-      <h2>Already have an account?</h2>
-      <Link href="/api/auth/signin">Sign in</Link>
     </>
   );
 };
