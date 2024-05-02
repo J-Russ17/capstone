@@ -82,7 +82,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           required
         />
       </div>
-      <button type="submit" className={styles.button}>
+      <button onSubmit={handleSubmit} type="submit" className={styles.button}>
         Register
       </button>
       <p className={styles.signInText}>
