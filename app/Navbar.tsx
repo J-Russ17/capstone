@@ -23,10 +23,11 @@ function Navbar() {
 
   const pages = [
     { label: "Play", path: isAuthenticated ? "/play" : "/api/auth/signin" },
+    // { label: "Play", path: "/play" },
     { label: "Leaderboards", path: "/leaderboards" },
     {
-      label: isAuthenticated ? "Sign Out" : "Register",
-      path: isAuthenticated ? "/api/auth/signout" : "/register",
+      label: isAuthenticated ? "Sign Out" : "Sign in",
+      path: isAuthenticated ? "/api/auth/signout" : "/api/auth/signin",
     },
   ];
 
