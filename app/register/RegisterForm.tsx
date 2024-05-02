@@ -24,7 +24,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 
     try {
       const response = await axios.post(
-        "https://capstone-ruddy-six.vercel.app/api/register",
+        "https://capstone-next-chess.vercel.app/api/register",
         {
           email,
           password,
