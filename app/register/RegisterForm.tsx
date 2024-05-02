@@ -1,8 +1,8 @@
+"use client";
 import React, { useState, FormEvent } from "react";
 import axios from "axios";
 import styles from "./RegisterForm.module.css";
 import Link from "next/link";
-import { useRouter } from "next/router"; // Import useRouter
 
 interface RegisterFormProps {
   onSubmit: (data: {
@@ -16,8 +16,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const router = useRouter(); // Create the router instance
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -35,7 +33,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
         }
       );
       console.log("Registration successful:", response.data);
-      router.push("/"); // Redirect to the homepage upon successful registration
     } catch (error: any) {
       console.error(
         "Registration error:",
@@ -85,7 +82,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           required
         />
       </div>
-      <button type="submit" className={styles.button}>
+      <button onSubmit={handleSubmit} type="submit" className={styles.button}>
         Register
       </button>
       <p className={styles.signInText}>
