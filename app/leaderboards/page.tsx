@@ -60,40 +60,40 @@ const UserList = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Bullet</h2>
-        <ul className={styles.list}>
-          {players.bullet.map((player) => (
-            <li key={player.id} className={styles.listItem}>
-              User: {player.username}, Title: {player.title || "N/A"}, Rating:{" "}
-              {player.perfs.bullet?.rating}
-            </li>
-          ))}
-        </ul>
+    <div>
+      <h1 className={styles.header}>LEADERBOARDS</h1>
+      <div className={styles.container}>
+        {["bullet", "blitz", "rapid"].map((type) => (
+          <div className={styles.section} key={type}>
+            <h2 className={styles.sectionTitle}>
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </h2>
+            <ul className={styles.list}>
+              {(players[type as keyof PlayerData] as Player[]).map(
+                (player: Player) => (
+                  <li key={player.id} className={styles.listItem}>
+                    User: {player.username}, Title: {player.title || "N/A"},
+                    Rating:{" "}
+                    {player.perfs[type as keyof typeof player.perfs]?.rating}
+                  </li>
+                )
+              )}
+            </ul>
+            <p className={styles.description}>
+              {type === "bullet" &&
+                "Fast-paced games with 1-2 minutes per player."}
+              {type === "blitz" &&
+                "Short games, typically 3-5 minutes per player."}
+              {type === "rapid" &&
+                "Longer games, usually 10-25 minutes per player."}
+            </p>
+          </div>
+        ))}
       </div>
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Blitz</h2>
-        <ul className={styles.list}>
-          {players.blitz.map((player) => (
-            <li key={player.id} className={styles.listItem}>
-              User: {player.username}, Title: {player.title || "N/A"}, Rating:{" "}
-              {player.perfs.blitz?.rating}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Rapid</h2>
-        <ul className={styles.list}>
-          {players.rapid.map((player) => (
-            <li key={player.id} className={styles.listItem}>
-              User: {player.username}, Title: {player.title || "N/A"}, Rating:{" "}
-              {player.perfs.rapid?.rating}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <p className={styles.footer}>
+        Top ten players in bullet, blitz, and rapid according to{" "}
+        <a href="https://lichess.org">lichess.org</a>
+      </p>
     </div>
   );
 };

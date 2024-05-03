@@ -5,6 +5,13 @@
   padding: 20px;
 }
 
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: gold;
+}
+
 .section {
   width: 30%;
   margin: 0 10px;
@@ -32,4 +39,29 @@
 .listItem {
   margin-bottom: 10px;
   font-size: 0.9em;
+}
+
+.description {
+  color: #ccc;
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.footer {
+  text-align: center;
+  color: white;
+  font-size: 0.9em;
+  margin-top: 20px;
+}
+
+.footer a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.footer a:hover,
+.footer a:focus {
+  color: #0056b3;
+  text-decoration: none;
 }
