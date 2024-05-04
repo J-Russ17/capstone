@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import styles from "./Play.module.css"; // Import the styles from the CSS module
+import styles from "./Play.module.css";
 
 const Play = () => {
   return (

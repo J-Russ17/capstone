@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Chess } from "chess.js";
 import Chessboard from "chessboardjsx";
 import styles from "./DefaultBoard.module.css";
-import axios from "axios";
 
 interface DropResults {
   sourceSquare: string;
@@ -15,6 +14,7 @@ const DefaultBoard: React.FC = () => {
   const [fen, setFen] = useState<string>("start");
   const [orientation, setOrientation] = useState<"white" | "black">("white");
   const [checkmate, setCheckmate] = useState<boolean>(false);
+  const [moveCount, setMoveCount] = useState<number>(0);
   const game = useRef<Chess | null>(null);
 
   useEffect(() => {
@@ -58,6 +58,8 @@ const DefaultBoard: React.FC = () => {
       return "snapback";
     }
 
+    setMoveCount(moveCount + 1);
+
     const isCheckmate = game.current?.isGameOver();
 
     if (isCheckmate) return setCheckmate(true);
@@ -69,38 +71,46 @@ const DefaultBoard: React.FC = () => {
     }
   };
 
-  const startNewGame = async () => {
-    try {
-      const response = await axios.post("/api/game", { fen });
-      console.log("Game started:", response.data);
-    } catch (error: any) {
-      console.error(
-        "Failed to start game:",
-        error.response?.data || error.message
-      );
-    }
-  };
-
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.boardAndStatus}>
-          <div className={styles.statusText}>
-            {checkmate && <p>CHECKMATE!</p>}
+        <div className={styles.layout}>
+          {moveCount === 0 && (
+            <div className={styles.leftText}>
+              <p>
+                This game mode is meant to be played with a friend in person.
+                Whenever a move is made the board will flip orientation so that
+                whoever&apos;s turn it is gets to see the board from their
+                piece&apos;s point of view. Make a move to initiate the game,
+                white goes first!
+              </p>
+            </div>
+          )}
+
+          <div className={styles.boardCenter}>
+            <div className={styles.statusText}>
+              {checkmate && <p>CHECKMATE!</p>}
+            </div>
+
+            <div className="chess-board">
+              <Chessboard
+                position={fen}
+                onDrop={onDrop}
+                dropOffBoard="snapback"
+                orientation={orientation}
+              />
+            </div>
+
+            <div className={styles.statusText}>
+              {checkmate && <p>{orientation.toUpperCase()} WINS!</p>}
+            </div>
           </div>
 
-          <div className="chess-board">
-            <Chessboard
-              position={fen}
-              onDrop={onDrop}
-              dropOffBoard="snapback"
-              orientation={orientation}
-            />
-          </div>
-
-          <div className={styles.statusText}>
-            {checkmate && <p>{orientation.toUpperCase()} WINS!</p>}
-          </div>
+          {moveCount === 0 && (
+            <div className={styles.rightText}>
+              <p>Good luck have fun!</p>
+            </div>
+          )}
         </div>
       </div>
     </>

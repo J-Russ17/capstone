@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import RegisterForm from "./RegisterForm";
-import Link from "next/link";
 
 const RegisterPage = () => {
   const handleSubmit = (data: {

@@ -14,7 +14,7 @@ const Home: React.FC = () => {
       </div>
       <div className="flex flex-wrap justify-between items-stretch w-full max-w-4xl mx-auto my-8 gap-8">
         <div
-          className="flex-1 flex flex-col p-4 border-2 border-black rounded-lg"
+          className="flex-1 flex flex-col p-4 border-2 border-black rounded-lg bg-black"
           style={{ minHeight: "300px" }}
         >
           <div className="mb-auto w-full text-center">
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div
-          className="flex-1 flex flex-col justify-center items-center p-4 border-2 border-black rounded-lg"
+          className="flex-1 flex flex-col justify-center items-center p-4 border-2 border-black rounded-lg bg-black"
           style={{ minHeight: "300px" }}
         >
           <div className="w-full text-center">

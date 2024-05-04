@@ -1,0 +1,24 @@
+.footer {
+  height: 64px;
+  padding: 0 20px;
+  background-color: #000;
+  color: #daa520;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.link {
+  color: #daa520;
+  text-decoration: none;
+  text-decoration: underline;
+}
